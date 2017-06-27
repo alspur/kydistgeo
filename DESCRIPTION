@@ -1,0 +1,10 @@
+Package: kydistgeo
+Title: Geographic Boundaries of Kentucky School Districts
+Version: 0.0.0.9000
+Authors@R: person("Alex", "Spurrier", email = "alex.spurrier@gmail.com", role = c("aut", "cre"))
+Description: This package contains one sf object that contains the name and geometry of Kentucky school distircts
+Depends: R (>= 3.4.0)
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
