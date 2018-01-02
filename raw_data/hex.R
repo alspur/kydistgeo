@@ -3,6 +3,7 @@ library(tidyverse)
 # load packages
 library(tidyverse)
 library(sf)
+library(mapview)
 
 # read shapefile
 districts <- read_sf("raw_data/ky_dist.shp")
@@ -152,13 +153,28 @@ ky_dist_geo <- ky_dist_geo %>%
   filter(dist_name != "Corbin Independent" | ID == 1) %>%
   filter(dist_name != "Fort Knox") %>%
   filter(dist_name != "Fort Campbell") %>%
-  select(dist_name, geometry)
+  select(dist_name, geometry) %>%
+  mutate(dist_name = str_replace_all(dist_name, "Ft Thomas", "Fort Thomas"))
+
+# get dist id's
+dist_id <- profile_dist %>%
+  filter(year == "2016-2017") %>%
+  pull(sch_id)
+
+
+ky_dist_geo <- ky_dist_geo %>%
+  arrange(dist_name) %>%
+  mutate(sch_id = dist_id[1:173]) %>%
+  select(sch_id, dist_name, geometry)
 
 # plot clean districts
 
 ggplot(ky_dist_geo) +
   geom_sf() +
-  theme_void()
+  theme_bw()
+
+
+mapview(ky_dist_geo)
 
 # save clean districts
 devtools::use_data(ky_dist_geo, overwrite = TRUE)
@@ -231,3 +247,4 @@ hexplot
 ky_hex <- result_df
 
 devtools::use_data(ky_hex, overwrite = TRUE)
+
