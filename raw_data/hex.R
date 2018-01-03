@@ -1,9 +1,9 @@
-library(hexmapr)
-library(tidyverse)
+
 # load packages
 library(tidyverse)
 library(sf)
 library(mapview)
+library(hexmapr)
 
 # read shapefile
 districts <- read_sf("raw_data/ky_dist.shp")
@@ -171,8 +171,7 @@ ky_dist_geo <- ky_dist_geo %>%
 
 ggplot(ky_dist_geo) +
   geom_sf() +
-  theme_bw()
-
+  theme_void()
 
 mapview(ky_dist_geo)
 
